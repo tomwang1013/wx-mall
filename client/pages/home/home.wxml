@@ -1,0 +1,31 @@
+<image class='bg' src='/images/bg.png'></image>
+<view class='head-product'>
+  <view class='head-title'>
+    <image class='line-icon' src='/images/line-red.png'></image>
+    <text class='line-name'>{{productList[0].name}}</text>
+    <image class='line-icon' src='/images/line-red.png'></image>
+  </view>
+  <view class='head-content'>
+    <image class='discount-icon' src='/images/discount.png'></image>
+    <image class='right-img' src='{{productList[0].image}}'></image>
+  </view>
+</view>
+<view class='sep'>
+  <image class='line-icon' src='/images/line-black.png'></image>
+  <text class='line-name'>春季推荐</text>
+  <image class='line-icon' src='/images/line-black.png'></image>
+</view>
+<view>
+  <view wx:for='{{productList}}'
+        wx:if='{{index > 0}}' 
+        wx:key='{{item.id}}'
+        class='{{index % 2 ? "list-product even" : "list-product"}}'>
+    <image class='list-image' src='{{item.image}}'></image>
+    <view class='product-name'>{{item.name}}</view>
+    <view class='product-footer'>
+      <view class='money-icon'>￥</view>
+      <view class='price'>{{item.price}}</view>
+      <view class='add-icon'>+</view>
+    </view>
+  </view>
+</view>
