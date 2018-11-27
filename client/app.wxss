@@ -1,10 +1,9 @@
 /**app.wxss**/
-view {
+view, navigator {
   box-sizing: border-box;
 }
 
 page {
-  padding: 25rpx;
   background: #f9f9f9;
 }
 

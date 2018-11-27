@@ -16,10 +16,10 @@
   <image class='line-icon' src='/images/line-black.png'></image>
 </view>
 <view>
-  <view wx:for='{{productList}}'
-        wx:if='{{index > 0}}' 
-        wx:key='{{item.id}}'
-        class='{{index % 2 ? "list-product even" : "list-product"}}'>
+  <navigator wx:for='{{productList}}'
+             wx:if='{{index > 0}}' 
+             wx:key='{{item.id}}'
+             class='{{index % 2 ? "list-product even" : "list-product"}}'>
     <image class='list-image' src='{{item.image}}'></image>
     <view class='product-name'>{{item.name}}</view>
     <view class='product-footer'>
@@ -27,5 +27,5 @@
       <view class='price'>{{item.price}}</view>
       <view class='add-icon'>+</view>
     </view>
-  </view>
+  </navigator>
 </view>

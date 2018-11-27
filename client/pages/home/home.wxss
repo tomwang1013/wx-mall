@@ -1,3 +1,7 @@
+page {
+  padding: 25rpx;
+}
+
 .head-product {
   padding: 30rpx 30rpx 0;
   width: 700rpx;
