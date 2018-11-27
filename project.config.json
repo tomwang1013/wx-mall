@@ -28,9 +28,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "product",
-					"pathName": "pages/product/product"
+					"pathName": "pages/product/product",
+					"query": "id=5"
 				}
 			]
 		}

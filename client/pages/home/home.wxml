@@ -19,6 +19,7 @@
   <navigator wx:for='{{productList}}'
              wx:if='{{index > 0}}' 
              wx:key='{{item.id}}'
+             url='{{"/pages/product/product?id=" + item.id}}'
              class='{{index % 2 ? "list-product even" : "list-product"}}'>
     <image class='list-image' src='{{item.image}}'></image>
     <view class='product-name'>{{item.name}}</view>
