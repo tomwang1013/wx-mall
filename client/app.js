@@ -33,16 +33,17 @@ App({
     success,
     error
   }) {
-    // if (this.userInfo) {
-    //   return success(this.userInfo);
-    // }
+    if (this.userInfo) {
+      return success(this.userInfo);
+    }
+    
     console.log('getUserInfo++')
 
     qcloud.request({
       // login: true,
       url: config.service.requestUrl,
       success: result => {
-        // this.userInfo = result.data.data;
+        this.userInfo = result.data.data;
         success(result.data.data);
       },
       error: err => error && error(err)
@@ -59,13 +60,14 @@ App({
       success: result => {
         console.log('login success: ', result);
         if (result) {
+          this.userInfo = result;
           success(result)
-        } else {
+        }/* else {
           this.getUserInfo({
             success,
             error
           })
-        }
+        }*/
       },
       error: err => error('login failed: ', err)
     })
@@ -75,7 +77,6 @@ App({
    * 点击登陆或授权的回调
    */
   login: function ({ success, error }) {
-    // TODO 如果用户同意授权可以直接使用返回的用户信息吗？
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo'] === false) {
@@ -86,8 +87,11 @@ App({
             content: '请点击"授权登录"授权我们获取您的用户信息',
             showCancel: false
           });
+
+          // 用来改变按钮状态：微信登录 -> 授权登录
           success(null);
         } else {
+          // 已经授权
           this.userInfoAuthType = AUTHORIZED;
           this.doQcloudLogin({ success, error });
         }
@@ -95,5 +99,6 @@ App({
     })
   },
 
-  userInfoAuthType: UNPROMPTED
+  userInfoAuthType: UNPROMPTED,
+  userInfo: null
 })
