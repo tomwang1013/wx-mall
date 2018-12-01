@@ -15,3 +15,43 @@ page {
   height: 144rpx;
   z-index: -1;
 }
+
+/* 未登录样式 */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 30rpx 20rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  box-shadow: 0 0 6rpx 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6rpx;
+}
+
+.avater-placeholder {
+  margin-right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: yellow;
+}
+
+.not-login-text {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.not-login-hint {
+  font-size: 28rpx;
+  color: #888;
+}
+
+.login-btn {
+  margin: auto;
+  width: 200rpx;
+  line-height: 80rpx;
+  background-color: yellow;
+  font-size: 30rpx;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 6rpx;
+}

@@ -1,1 +1,39 @@
-/* pages/user/user.wxss */
+.login-wrappe.is-login {
+  margin-bottom: 10rpx;
+  border-radius: 6rpx 6rpx 0 0;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.avatar {
+  margin-right: 20rpx;
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 50%;
+}
+
+.user-info-list {
+  margin: 0 20rpx;
+  background-color: #fff;
+  border-radius: 0 0 6rpx 6rpx;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.list-item {
+  display: flex;
+  margin: 0 20rpx 0 30rpx;
+  line-height: 96rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item-icon {
+  width: 11rpx;
+  height: 18rpx;
+  margin-left: auto;
+}

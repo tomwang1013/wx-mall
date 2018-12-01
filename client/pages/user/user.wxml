@@ -1,2 +1,36 @@
-<!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<image class='bg' src='/images/bg.png'></image>
+<view wx:if='{{!userInfo}}'>
+  <view class='login-wrapper'>
+    <view class='avater-placeholder'></view>
+    <view class='hint-wrapper'>
+      <view class='not-login-text'>未登录</view>
+      <view class='not-login-hint'>点击微信登录后可方便购物</view>
+    </view>
+  </view>
+  <button class="login-btn"
+          wx:if='{{userInfoAuthType !== 1}}'
+          open-type="getUserInfo" 
+          bindgetuserinfo="onTapLogin">微信登录</button>
+  <button class="login-btn"
+          wx:if='{{userInfoAuthType === 1}}'
+          open-type="openSetting" 
+          bindopensetting='onTapLogin'>授权登录</button>
+</view>
+<block wx:else>
+  <view class='login-wrapper is-login'>
+    <image class='avatar' src='{{userInfo.avatarUrl}}'></image>
+    <view class='user-name'>{{userInfo.nickName}}</view>
+  </view>
+  <view class='user-info-list'>
+    <view class='list-item'>
+      <text class='list-item-text'>收货地址</text>
+      <image class='list-item-icon' 
+             src='/images/grey-arrow.png'></image>
+    </view>
+    <view class='list-item'>
+      <text class='list-item-text'>联系客服</text>
+      <image class='list-item-icon' 
+             src='/images/grey-arrow.png'></image>
+    </view>
+  </view>
+</block>

@@ -1,9 +1,9 @@
 {
   "pages":[
+    "pages/user/user",
     "pages/home/home",
     "pages/order/order",
     "pages/trolley/trolley",
-    "pages/user/user",
     "pages/product/product"
   ],
   "window":{
