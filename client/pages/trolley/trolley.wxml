@@ -1,2 +1,4 @@
-<!--pages/trolley/trolley.wxml-->
-<text>pages/trolley/trolley.wxml</text>
+<image class='bg' src='/images/bg.png'></image>
+<view wx:if='{{!userInfo}}'>
+  <include src='../../templates/not-login.wxml'/>
+</view>

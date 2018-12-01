@@ -1,11 +1,25 @@
-// pages/trolley/trolley.js
+const qcloud = require('../../vendor/wafer2-client-sdk/index.js');
+const config = require('../../config.js');
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo: null,
+    userInfoAuthType: app.userInfoAuthType
+  },
 
+  onTapLogin() {
+    app.login({
+      success: result => this.setData({
+        userInfo: result,
+        userInfoAuthType: app.userInfoAuthType
+      }),
+      error: err => console.error('login failed: ', err)
+    });
   },
 
   /**
@@ -26,7 +40,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    app.checkSession({
+      success: userInfo => this.setData({ userInfo }),
+      fail: () => { }
+    })
   },
 
   /**
