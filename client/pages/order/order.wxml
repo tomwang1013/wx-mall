@@ -2,3 +2,26 @@
 <view wx:if='{{!userInfo}}'>
   <include src='../../templates/not-login.wxml'/>
 </view>
+<view wx:else class='root'>
+  <view wx:if='{{orderList.length === 0}}' class='no-order'>
+    <image src='/images/order.png'></image>
+    <view>暂时还没有订单</view>
+  </view>
+  <view wx:else>
+    <view class='title'>
+      <image src='/images/line-black.png' class='line-black'></image>
+      <text class='completed'>已完成</text>
+    </view>
+    <view wx:for='{{orderList}}' wx:key='{{item.id}}' class='order-wrapper'>
+      <view wx:for='{{item.list}}' wx:key='{{item.name}}' class='order'>
+        <image src='{{item.image}}'></image>
+        <view class='order-right'>
+          <view class='name'>{{item.name}}</view>
+          <view class='price'>￥ {{item.price}}</view>
+        </view>
+        <button class='to-comment'>评价</button>
+        <text class='count'>x{{item.count}}</text>
+      </view>
+    </view>
+  </view>
+</view>

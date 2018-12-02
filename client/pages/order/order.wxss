@@ -1,1 +1,87 @@
-/* pages/order/order.wxss */
+.no-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx;
+  background-color: #fff;
+  height: 400rpx;
+  box-shadow: 0 0 3rpx 0px rgba(0,0,0,.2);
+  color: #888;
+  font-size: 28rpx;
+  border-radius: 6rpx;
+}
+
+.no-order image {
+  margin-bottom: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.root {
+  padding: 20rpx;
+}
+
+.title {
+  margin: 20rpx 0;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.line-black {
+  width: 21rpx;
+  height: 34rpx;
+  margin-right: 10rpx;
+  vertical-align: middle;
+}
+
+.order-wrapper {
+  margin-bottom: 30rpx;
+  background-color: #fff;
+  box-shadow: 0 0 3rpx 0px rgba(0,0,0,.2);
+  border-radius: 6rpx;
+}
+
+.order {
+  padding: 20rpx;
+  position: relative;
+  display: flex;
+}
+
+.order:not(:last-child) {
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.order image {
+  width: 156rpx;
+  height: 156rpx;
+  margin-right: 20rpx;
+}
+
+.name {
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.price {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.to-comment {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 160rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  text-align: center;
+  background-color: yellow;
+}
+
+.count {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+}
