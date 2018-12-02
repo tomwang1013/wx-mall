@@ -34,6 +34,24 @@ Page({
     });
   },
 
+  // 立即购买
+  buy() {
+    let product = Object.assign({
+      count: 1
+    }, this.data.product)
+
+    qcloud.request({
+      url: config.service.buyUrl,
+      data: { list: [product] },
+      // login: true,
+      method: 'POST',
+      success: () => {
+        console.log('购买成功');
+      },
+      fail: err => console.log('购买失败：', err)
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
