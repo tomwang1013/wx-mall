@@ -2,7 +2,7 @@
 <view wx:if='{{!userInfo}}'>
   <include src='../../templates/not-login.wxml'/>
 </view>
-<view wx:else class='root'>
+<view wx:if='{{orderList}}' class='root'>
   <view wx:if='{{orderList.length === 0}}' class='no-order'>
     <image src='/images/order.png'></image>
     <view>暂时还没有订单</view>

@@ -30,7 +30,10 @@ var config = {
     productDetail: `${host}/weapp/product/`,
 
     // 立即购买
-    buyUrl: `${host}/weapp/order`
+    buyUrl: `${host}/weapp/order`,
+
+    // 订单列表
+    orderListUrl: `${host}/weapp/order`
   }
 };
 

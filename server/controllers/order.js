@@ -31,5 +31,25 @@ module.exports = {
     let user = ctx.state.$wxInfo.userinfo.openId;
 
     // TODO 构建联合查询sql
+    let list = await DB.query('SELECT order_user.id as orderId, order_product.count as count, product.image as image, product.name as name, product.price as price FROM order_user inner join order_product on order_user.id = order_product.order_id inner join product on order_product.product_id = product.id where order_user.user = ?', [user]);
+
+    const orderMap = {};
+    list.forEach(o => {
+      if (!orderMap[o.orderId]) {
+        orderMap[o.orderId] = [];
+      }
+
+      orderMap[o.orderId].push(o);
+    });
+
+    const ret = [];
+    for (let orderId in orderMap) {
+      ret.push({
+        id: orderId,
+        list: orderMap[orderId]
+      });
+    }
+
+    ctx.state.data = ret;
   }
 }
