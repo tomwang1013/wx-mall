@@ -56,7 +56,7 @@ Page({
         userInfo: result,
         userInfoAuthType: app.userInfoAuthType
       }),
-      error: err => console.error('login failed: ', err)
+      fail: err => console.error('login failed: ', err)
     });
   },
 
@@ -64,7 +64,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -80,8 +80,8 @@ Page({
   onShow: function () {
     app.checkSession({
       success: userInfo => this.setData({ userInfo }),
-      fail: () => { }
-    })
+      fail: err => console.log('checkSession failed: ', err)
+    });
   },
 
   /**

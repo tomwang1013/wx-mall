@@ -14,69 +14,49 @@ App({
   /**
    * 检查是否已经登录
    */
-  checkSession({
-    success,
-    fail
-  }) {
+  checkSession({ success, fail }) {
     wx.checkSession({
-      success: () => this.getUserInfo({
-        success,
-        error: fail
-      })
+      success: () => this.getUserInfo({ success, fail }),
+      fail: err => fail(err)
     })
   },
 
   /**
    * 重新获取用户信息
    */
-  getUserInfo({
-    success,
-    error
-  }) {
+  getUserInfo({ success, fail }) {
     if (this.userInfo) {
       return success(this.userInfo);
     }
     
-    console.log('getUserInfo++')
-
     qcloud.request({
-      // login: true,
+      login: true,
       url: config.service.requestUrl,
       success: result => {
         this.userInfo = result.data.data;
         success(result.data.data);
       },
-      error: err => error && error(err)
+      fail: err => fail && fail(err)
     });
   },
 
-  doQcloudLogin({
-    success,
-    error
-  }) {
-    // 只有第一次调用时返回用户的信息，后面再调用login方法返回空值，所以
-    // 我们需要调接口获取
+  /**
+   * 登录并保存用户信息
+   */
+  doQcloudLogin({ success, fai }) {
     qcloud.login({
       success: result => {
-        console.log('login success: ', result);
-        if (result) {
-          this.userInfo = result;
-          success(result)
-        }/* else {
-          this.getUserInfo({
-            success,
-            error
-          })
-        }*/
+        this.userInfo = result;
+        success(result)
       },
-      error: err => error('login failed: ', err)
+      fail: err => fail('login failed: ', err)
     })
   },
 
   /**
    * 点击登陆或授权的回调
    */
-  login: function ({ success, error }) {
+  login: function ({ success, fail }) {
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo'] === false) {
@@ -93,7 +73,7 @@ App({
         } else {
           // 已经授权
           this.userInfoAuthType = AUTHORIZED;
-          this.doQcloudLogin({ success, error });
+          this.doQcloudLogin({ success, fail });
         }
       }
     })

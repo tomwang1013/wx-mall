@@ -43,7 +43,7 @@ Page({
     qcloud.request({
       url: config.service.buyUrl,
       data: { list: [product] },
-      // login: true,
+      login: true,
       method: 'POST',
       success: () => {
         console.log('购买成功');
