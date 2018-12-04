@@ -1,6 +1,7 @@
 .top {
   display: flex;
-  margin: 20rpx;
+  height: 94rpx;
+  padding: 20rpx;
   align-items: center;
   font-size: 32rpx;
 }
@@ -13,6 +14,15 @@
   font-size: 0;
   border-radius: 50%;
   text-align: center;
+  background-color: #e9e9e9;
+}
+
+.total-check-mark.white {
+  background-color: #fff;
+}
+
+.total-check-mark.checked {
+  background-color: #F5E069;
 }
 
 .check-icon {
@@ -25,6 +35,16 @@
   margin-left: auto;
 }
 
+/* 注意上方的margin：最好在边界处不要使用margin，用padding隔开 */
+.product-scroller {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 94rpx;
+  bottom: 96rpx;
+  padding-bottom: 30rpx;
+}
+
 .order {
   position: relative;
   display: flex;
@@ -34,6 +54,10 @@
   background-color: #fff;
   box-shadow: 0 0 3rpx 0px rgba(0,0,0,.2);
   border-radius: 6rpx;
+}
+
+.order:first-child {
+  margin-top: 0;
 }
 
 .product-image {
@@ -57,6 +81,25 @@
   position: absolute;
   bottom: 20rpx;
   right: 20rpx;
+}
+
+.change.count {
+  display: flex;
+  align-items: center;
+}
+
+.change.count .number {
+  margin: 0 10rpx;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48rpx;
+  height: 48rpx;
+  border: 1rpx solid #F5E069;
+  border-radius: 50%;
 }
 
 .settlement-bar {
@@ -90,7 +133,31 @@
   width: 196rpx;
   margin-left: 30rpx;
   line-height: 96rpx;
-  background-color: yellow;
+  background-color: rgb(207, 192, 108);
   text-align: center;
   font-size: 36rpx;
+}
+
+.settle.enabled {
+  background-color: rgb(247, 213, 22);
+}
+
+.no-order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx;
+  background-color: #fff;
+  height: 400rpx;
+  box-shadow: 0 0 3rpx 0px rgba(0,0,0,.2);
+  color: #888;
+  font-size: 28rpx;
+  border-radius: 6rpx;
+}
+
+.no-order image {
+  margin-bottom: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
 }

@@ -3,33 +3,48 @@
   <include src='../../templates/not-login.wxml'/>
 </view>
 <view wx:else>
-  <template name='check-mark'>
-    <view class='total-check-mark' 
-            style='background-color: {{bgColor}}'>
+  <block wx:if='{{trolleyList.length}}'>
+    <template name='check-mark'>
+      <view class='total-check-mark {{!hidden ? "checked" : ""}} {{top ? "white" : ""}}'>
         <image hidden='{{hidden}}'
-              class='check-icon' 
-              src='/images/check.png'></image>
+               class='check-icon' 
+               src='/images/check.png'></image>
       </view>
-  </template>
-  <view class='top'>
-    <template is='check-mark' data='{{bgColor: isTrolleyTotalCheck ? "#F5E069" : "#fff", hidden: !isTrolleyTotalCheck}}'/>
-    <text class='total-select-text'>全选</text>
-    <text class='to-edit'>编辑</text>
-  </view>
-  <view wx:for='{{trolleyList}}' wx:key='item.id' class='order'>
-    <template is='check-mark' data='{{bgColor: "#f9f9f9", hidden: !trolleyCheckMap[index]}}'/>
-    <image src='{{item.image}}' class='product-image'></image>
-    <view class='order-right'>
-      <view class='name'>{{item.name}}</view>
-      <view class='price'>￥ {{item.price}}</view>
+    </template>
+    <view class='top'>
+      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck, top: true}}'/>
+      <text class='total-select-text'>全选</text>
+      <text class='to-edit'>{{isTrolleyEdit ? "完成" : "编辑"}}</text>
     </view>
-    <text class='count'>x{{item.count}}</text>
-  </view>
-  <view class='settlement-bar'>
-    <template is='check-mark' data='{{bgColor: isTrolleyTotalCheck ? "#F5E069" : "#fff", hidden: !isTrolleyTotalCheck}}'/>
-    <text class='total-select-text'>全选</text>
-    <text class='total-price-text'>总价</text>
-    <text class='total-price-number'>￥ {{trolleyAccount}}</text>
-    <view class='settle'>结算</view>
+
+    <scroll-view scroll-y class='product-scroller' scroll-with-animation enable-back-to-top>
+      <view wx:for='{{trolleyList}}' wx:key='item.id' class='order'>
+        <template is='check-mark' data='{{hidden: !trolleyCheckMap[index]}}'/>
+        <image src='{{item.image}}' class='product-image'></image>
+        <view class='order-right'>
+          <view class='name'>{{item.name}}</view>
+          <view class='price'>￥ {{item.price}}</view>
+        </view>
+        <text wx:if='{{isTrolleyEdit}}' class='count'>x{{item.count}}</text>
+        <view wx:else class='count change'>
+          <view class='circle minus'>-</view>
+          <view class='number'>{{item.count}}</view>
+          <view class='circle plus'>+</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class='settlement-bar'>
+      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck}}'/>
+      <text class='total-select-text'>全选</text>
+      <text class='total-price-text'>总价</text>
+      <text class='total-price-number'>￥ {{trolleyAccount}}</text>
+      <view class='settle {{trolleyAccount > 0 ? "enabled" : ""}}'>结算</view>
+    </view>
+  </block>
+  <view wx:else class='no-order'>
+    <image src='/images/trolley.png'></image>
+    <view>购物车是空的</view>
+    <view>快进来添加物品吧</view>
   </view>
 </view>
