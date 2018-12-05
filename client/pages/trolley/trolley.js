@@ -56,8 +56,43 @@ Page({
 
   // 切换编辑状态
   switchMode() {
-    this.setData({
-      isTrolleyEdit: !this.data.isTrolleyEdit
+    if (this.data.isTrolleyEdit) {
+      // 保存成功之后才更新状态
+      this.updateTrolley();
+    } else {
+      this.setData({
+        isTrolleyEdit: !this.data.isTrolleyEdit
+      });
+    }
+  },
+
+  // 更新购物车信息到服务器
+  updateTrolley() {
+    wx.showLoading({
+      title: '保存购物车信息...',
+    })
+
+    qcloud.request({
+      url: config.service.updateTrolleyUrl,
+      method: 'POST',
+      login: true,
+      data: {
+        trolleyList: this.data.trolleyList
+      },
+      success: response => {
+        wx.hideLoading();
+        if (!response.data.code) {
+          wx.showToast({ title: '保存成功' });
+          this.setData({ isTrolleyEdit: false });
+        } else {
+          wx.showToast({ title: '保存失败' });
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('保存购物车信息失败：', err);
+        wx.showToast({ title: '保存失败' });
+      }
     })
   },
 

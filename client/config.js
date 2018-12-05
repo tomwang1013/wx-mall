@@ -39,7 +39,10 @@ var config = {
     addToTrolleyUrl: `${host}/weapp/trolley`,
 
     // 购物车列表
-    trolleyListUrl: `${host}/weapp/trolley`
+    trolleyListUrl: `${host}/weapp/trolley`,
+
+    // 更新购物车列表
+    updateTrolleyUrl: `${host}/weapp/trolley`,
   }
 };
 
