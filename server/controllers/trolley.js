@@ -37,8 +37,8 @@ module.exports = {
     newTrolleyList.forEach(trolley => {
       placeholders.push('(?, ?, ?)');
       values.push(trolley.id);
-      values.push(user);
       values.push(trolley.count);
+      values.push(user);
     });
 
     await DB.query(insertSql + placeholders.join(','), values);
