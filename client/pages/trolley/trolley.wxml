@@ -16,7 +16,7 @@
     <view class='top'>
       <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck, top: true, index: -1}}'/>
       <text class='total-select-text'>全选</text>
-      <text class='to-edit'>{{isTrolleyEdit ? "完成" : "编辑"}}</text>
+      <text class='to-edit' bindtap='switchMode'>{{isTrolleyEdit ? "完成" : "编辑"}}</text>
     </view>
 
     <scroll-view scroll-y class='product-scroller' scroll-with-animation enable-back-to-top>
@@ -27,11 +27,17 @@
           <view class='name'>{{item.name}}</view>
           <view class='price'>￥ {{item.price}}</view>
         </view>
-        <text wx:if='{{isTrolleyEdit}}' class='count'>x{{item.count}}</text>
+        <text wx:if='{{!isTrolleyEdit}}' class='count'>x{{item.count}}</text>
         <view wx:else class='count change'>
-          <view class='circle minus'>-</view>
+          <view class='circle minus' 
+                bindtap='changeCount' 
+                data-change-count='{{-1}}'
+                data-product-index='{{index}}'>-</view>
           <view class='number'>{{item.count}}</view>
-          <view class='circle plus'>+</view>
+          <view class='circle plus' 
+                bindtap='changeCount' 
+                data-change-count='{{1}}'
+                data-product-index='{{index}}'>+</view>
         </view>
       </view>
     </scroll-view>

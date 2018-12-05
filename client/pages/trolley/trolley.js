@@ -18,6 +18,7 @@ Page({
     isTrolleyTotalCheck: false, // 购物车中商品是否全选
   },
 
+  // 全选或单选
   onClickCheck(event) {
     const index = event.currentTarget.dataset.index;
     if (index === -1) {
@@ -37,6 +38,54 @@ Page({
       
       this.setData({
         isTrolleyTotalCheck: this.data.trolleyCheckMap.every(c => !!c)
+      })
+    }
+
+    const newAccount = this.data.trolleyList.reduce((a, b, i) => {
+      if (this.data.trolleyCheckMap[i]) {
+        return a + b.price * b.count;
+      } else {
+        return a;
+      }
+    }, 0);
+
+    this.setData({
+      trolleyAccount: newAccount
+    })
+  },
+
+  // 切换编辑状态
+  switchMode() {
+    this.setData({
+      isTrolleyEdit: !this.data.isTrolleyEdit
+    })
+  },
+
+  // 增加或减少商品
+  changeCount(event) {
+    const productIndex = event.currentTarget.dataset.productIndex;
+    const changeCount = event.currentTarget.dataset.changeCount;
+    const product = this.data.trolleyList[productIndex];
+
+    const newAccount = this.data.trolleyAccount + changeCount * product.price;
+    this.setData({
+      trolleyAccount: newAccount
+    })
+
+    const newCount = product.count + changeCount;
+    if (newCount > 0) {
+      this.setData({
+        [`trolleyList[${productIndex}].count`]: newCount
+      })
+    } else {
+      const trolleyList = this.data.trolleyList.slice();
+      const checkMap = this.data.trolleyCheckMap.slice();
+      trolleyList.splice(productIndex, 1);
+      checkMap.splice(productIndex, 1);
+
+      this.setData({
+        trolleyList: trolleyList,
+        trolleyCheckMap: checkMap
       })
     }
   },
