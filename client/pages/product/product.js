@@ -10,6 +10,7 @@ Page({
     product: {}
   },
 
+  // 获取商品详情
   getProductDetail(id) {
     wx.showLoading({
       title: '商品数据加载中...',
@@ -30,6 +31,40 @@ Page({
       fail: function (err) {
         wx.hideLoading()
         setTimeout(() => wx.navigateBack(), 2000)
+      }
+    });
+  },
+
+  // 加入购物车
+  addToTrolley() {
+    wx.showLoading({
+      title: '正在加入购物车...',
+    })
+
+    qcloud.request({
+      url: config.service.addToTrolleyUrl,
+      login: true,
+      method: 'PUT',
+      data: this.data.product,
+      success: (response) => {
+        wx.hideLoading();
+        if (!response.data.code) {
+          wx.showToast({
+            title: '已添加到购物车',
+          });
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '添加购物车失败',
+          });
+        }
+      },
+      fail: function (err) {
+        wx.hideLoading();
+        wx.showToast({
+          icon: 'none',
+          title: '添加购物车失败',
+        })
       }
     });
   },

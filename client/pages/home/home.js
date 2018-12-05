@@ -10,6 +10,7 @@ Page({
     productList: [], // 商品列表
   },
 
+  // 获取商品列表
   getProductList() {
     wx.showLoading({
       title: '商品下载中...',
@@ -38,59 +39,47 @@ Page({
     });
   },
 
+  // 加入购物车
+  addToTrolley(event) {
+    wx.showLoading({
+      title: '正在加入购物车...'
+    });
+
+    const productId = event.currentTarget.dataset.productId;
+    const product = this.data.productList.find(p => p.id === productId);
+
+    qcloud.request({
+      url: config.service.addToTrolleyUrl,
+      login: true,
+      method: 'PUT',
+      data: product,
+      success: response => {
+        wx.hideLoading();
+        if (!response.data.code) {
+          wx.showToast({
+            title: '已添加到购物车'
+          });
+        } else {
+          wx.showToast({
+            title: '添加到购物车失败',
+            icon: 'none'
+          })
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '添加到购物车失败',
+          icon: 'none'
+        })
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getProductList();
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })
