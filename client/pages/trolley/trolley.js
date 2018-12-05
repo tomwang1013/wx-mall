@@ -11,35 +11,91 @@ Page({
     userInfo: null,
     userInfoAuthType: app.userInfoAuthType,
 
-    trolleyList: [{
-      id: 1,
-      name: '商品1',
-      image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product1.jpg',
-      price: 45,
-      source: '海外·瑞典',
-      count: 1,
-    }, {
-      id: 2,
-      name: '商品2',
-      image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product2.jpg',
-      price: 158,
-      source: '海外·新西兰',
-      count: 3,
-    }], // 购物车商品列表
-    trolleyCheckMap: [undefined, true, undefined], // 购物车中选中的id哈希表
-    trolleyAccount: 45, // 购物车结算总价
+    trolleyList: [], // 购物车商品列表
+    trolleyCheckMap: [], // 购物车中选中的id哈希表
+    trolleyAccount: 0, // 购物车结算总价
     isTrolleyEdit: false, // 购物车是否处于编辑状态
-    isTrolleyTotalCheck: true, // 购物车中商品是否全选
+    isTrolleyTotalCheck: false, // 购物车中商品是否全选
   },
 
+  onClickCheck(event) {
+    const index = event.currentTarget.dataset.index;
+    if (index === -1) {
+      const newIsTotalCheck = !this.data.isTrolleyTotalCheck;
+      const newCheckMap = new Array(this.data.trolleyCheckMap.length);
+      for (let i = 0; i < newCheckMap.length; i++) {
+        newCheckMap[i] = newIsTotalCheck;
+      }
+      this.setData({
+        isTrolleyTotalCheck: newIsTotalCheck,
+        trolleyCheckMap: newCheckMap
+      })
+    } else {
+      this.setData({
+        [`trolleyCheckMap[${index}]`]: !this.data.trolleyCheckMap[index]
+      })
+      
+      this.setData({
+        isTrolleyTotalCheck: this.data.trolleyCheckMap.every(c => !!c)
+      })
+    }
+  },
+
+  // 点击登录
   onTapLogin() {
     app.login({
-      success: result => this.setData({
-        userInfo: result,
-        userInfoAuthType: app.userInfoAuthType
-      }),
+      success: result => {
+        this.setData({
+          userInfo: result,
+          userInfoAuthType: app.userInfoAuthType
+        });
+
+        // 登录之后马上获取购物车列表
+        this.getTrolleyList();
+      },
       fail: err => console.error('login failed: ', err)
     });
+  },
+
+  // 获取购物车列表
+  getTrolleyList() {
+    wx.showLoading({
+      title: '正在刷新购物车数据...'
+    });
+
+    qcloud.request({
+      url: config.service.trolleyListUrl,
+      login: true,
+      success: response => {
+        wx.hideLoading();
+
+        const trolleyList = response.data.data;
+        const totalAccount = trolleyList.reduce((a, b) => a + b.price * b.count, 0);
+
+        // 初始化都选中
+        const checkMap = new Array(trolleyList.length);
+        for (let i = 0; i < trolleyList.length; i++) {
+          checkMap[i] = true;
+        }
+
+        this.setData({
+          trolleyList,
+          trolleyAccount: totalAccount,
+          trolleyCheckMap: checkMap,
+          isTrolleyTotalCheck: true
+        });
+
+        wx.showToast({
+          title: '获取购物车信息成功'
+        });
+      },
+      fail: err => {
+        console.error('获取购物车列表失败：', err);
+        wx.showToast({
+          title: '获取购物车信息失败'
+        });
+      }
+    })
   },
 
   /**
@@ -47,7 +103,11 @@ Page({
    */
   onShow: function () {
     app.checkSession({
-      success: userInfo => this.setData({ userInfo }),
+      success: userInfo => {
+        // 用户已经登录了
+        this.setData({ userInfo });
+        this.getTrolleyList();
+      },
       fail: err => console.log('checkSession failed: ', err)
     })
   }

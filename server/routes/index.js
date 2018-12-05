@@ -42,5 +42,6 @@ router.get('/order', validationMiddleware, controllers.order.list)
 
 // 购物车
 router.put('/trolley', validationMiddleware, controllers.trolley.add)
+router.get('/trolley', validationMiddleware, controllers.trolley.list)
 
 module.exports = router

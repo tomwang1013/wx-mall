@@ -15,5 +15,12 @@ module.exports = {
       await DB.query('UPDATE trolley_user SET count = ? WHERE trolley_user.id = ? AND trolley_user.user = ?', 
         [count, id, user])
     }
+  },
+
+  list: async ctx => {
+    const user = ctx.state.$wxInfo.userinfo.openId;
+    const list = await DB.query('SELECT trolley_user.count as count, product.* FROM trolley_user LEFT JOIN product ON trolley_user.id = product.id WHERE trolley_user.user = ?', [user]);
+
+    ctx.state.data = list;
   }
 }

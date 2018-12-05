@@ -5,21 +5,23 @@
 <view wx:else>
   <block wx:if='{{trolleyList.length}}'>
     <template name='check-mark'>
-      <view class='total-check-mark {{!hidden ? "checked" : ""}} {{top ? "white" : ""}}'>
+      <view class='total-check-mark {{!hidden ? "checked" : ""}} {{top ? "white" : ""}}' 
+            bindtap='onClickCheck'
+            data-index='{{index}}'>
         <image hidden='{{hidden}}'
                class='check-icon' 
                src='/images/check.png'></image>
       </view>
     </template>
     <view class='top'>
-      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck, top: true}}'/>
+      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck, top: true, index: -1}}'/>
       <text class='total-select-text'>全选</text>
       <text class='to-edit'>{{isTrolleyEdit ? "完成" : "编辑"}}</text>
     </view>
 
     <scroll-view scroll-y class='product-scroller' scroll-with-animation enable-back-to-top>
       <view wx:for='{{trolleyList}}' wx:key='item.id' class='order'>
-        <template is='check-mark' data='{{hidden: !trolleyCheckMap[index]}}'/>
+        <template is='check-mark' data='{{hidden: !trolleyCheckMap[index], index}}'/>
         <image src='{{item.image}}' class='product-image'></image>
         <view class='order-right'>
           <view class='name'>{{item.name}}</view>
@@ -35,7 +37,7 @@
     </scroll-view>
 
     <view class='settlement-bar'>
-      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck}}'/>
+      <template is='check-mark' data='{{hidden: !isTrolleyTotalCheck, index: -1}}'/>
       <text class='total-select-text'>全选</text>
       <text class='total-price-text'>总价</text>
       <text class='total-price-number'>￥ {{trolleyAccount}}</text>
