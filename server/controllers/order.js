@@ -7,6 +7,7 @@ module.exports = {
   add: async ctx => {
     let user = ctx.state.$wxInfo.userinfo.openId;
     let productList = ctx.request.body.list || [];
+    let isInstantBuy = !!ctx.request.body.isInstantBuy;
 
     let order = await DB.query('INSERT INTO order_user(user) values (?)', [user]);
     let orderId = order.insertId;
@@ -14,14 +15,25 @@ module.exports = {
     let query = [];
     let param = [];
 
+    // 从购物车购买时清空已购买的商品
+    let needToDelQuery = [];
+    let needToDelIds = [];
+
     productList.forEach(product => {
       query.push('(?, ?, ?)');
       param.push(orderId);
       param.push(product.id);
       param.push(product.count || 1);
+
+      needToDelQuery.push('?');
+      needToDelIds.push(product.id);
     })
 
     await DB.query(sql + query.join(','), param);
+
+    if (!isInstantBuy) {
+      await DB.query(`DELETE FROM trolley_user where id IN (${needToDelQuery.join(",")}) AND user = ?`, [...needToDelIds, user]);
+    }
   },
 
   /**

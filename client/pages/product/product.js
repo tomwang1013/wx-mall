@@ -77,7 +77,10 @@ Page({
 
     qcloud.request({
       url: config.service.buyUrl,
-      data: { list: [product] },
+      data: { 
+        list: [product], 
+        isInstantBuy: true
+      },
       login: true,
       method: 'POST',
       success: () => {

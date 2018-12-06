@@ -47,7 +47,7 @@
       <text class='total-select-text'>全选</text>
       <text class='total-price-text'>总价</text>
       <text class='total-price-number'>￥ {{trolleyAccount}}</text>
-      <view class='settle {{trolleyAccount > 0 ? "enabled" : ""}}'>结算</view>
+      <view class='settle {{trolleyAccount > 0 ? "enabled" : ""}}' bindtap='buy'>结算</view>
     </view>
   </block>
   <view wx:else class='no-order'>

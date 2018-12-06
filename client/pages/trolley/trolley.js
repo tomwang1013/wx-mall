@@ -18,6 +18,43 @@ Page({
     isTrolleyTotalCheck: false, // 购物车中商品是否全选
   },
 
+  // 结算
+  buy() {
+    wx.showLoading({
+      title: '下单中...',
+    })
+
+    qcloud.request({
+      url: config.service.buyUrl,
+      method: 'POST',
+      login: true,
+      data: { 
+        list: this.data.trolleyList.filter((t, i) => this.data.trolleyCheckMap[i])
+      },
+      success: response => {
+        wx.hideLoading();
+        if (!response.data.code) {
+          wx.showToast({
+            title: '下单成功',
+          })
+        } else {
+          wx.showToast({
+            title: '下单失败',
+            icon: 'none'
+          })
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('下单失败：', err);
+        wx.showToast({
+          title: '下单失败',
+          icon: 'none'
+        })
+      }
+    })
+  },
+
   // 全选或单选
   onClickCheck(event) {
     const index = event.currentTarget.dataset.index;
