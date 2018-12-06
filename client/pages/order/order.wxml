@@ -1,9 +1,8 @@
 <wxs module='sp'>
   module.exports = {
     stringifyParams: function(params) {
-      return ['name', 'price', 'image'].map(function(k) {
-        var v = params[k];
-        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      return ['name', 'price', 'image', 'productId'].map(function(k) {
+        return k + '=' + params[k];
       }).join('&');
     }
   }

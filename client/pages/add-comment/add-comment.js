@@ -5,14 +5,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    product: null,
+    commentValue: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      product: {
+        image: options.image,
+        name: options.name,
+        price: options.price,
+        productId: options.productId
+      }
+    })
+  },
 
+  onInput(event) {
+    this.setData({
+      commentValue: event.detail.value.trim()
+    })
   },
 
   /**

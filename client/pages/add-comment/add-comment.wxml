@@ -1,2 +1,9 @@
-<!--client/pages/add-comment.wxml-->
-<text>client/pages/add-comment.wxml</text>
+<view class='order'>
+  <image src='{{product.image}}'></image>
+  <view class='order-right'>
+    <view class='name'>{{product.name}}</view>
+    <view class='price'>￥ {{product.price}}</view>
+  </view>
+</view>
+<textarea bindinput='onInput' auto-focus placeholder='请填写你的评论'></textarea>
+<view class='submit-comment {{!commentValue ? "disable" : ""}}'>提交评价</view>

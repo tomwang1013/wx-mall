@@ -1,1 +1,52 @@
-/* client/pages/add-comment.wxss */
+.order {
+  padding: 20rpx;
+  position: relative;
+  display: flex;
+  background-color: #fff;
+}
+
+.order image {
+  width: 156rpx;
+  height: 156rpx;
+  margin-right: 20rpx;
+}
+
+.name {
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.price {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+textarea {
+  margin: 30rpx;
+  padding: 20rpx;
+  width: 650rpx;
+  font-size: 32rpx;
+  height: 320rpx;
+  background-color: #fff;
+  border-radius: 6rpx;
+  box-shadow: 0 0 6rpx 0 rgba(0, 0, 0, 0.2);
+}
+
+.textarea-placeholder {
+  color: #888;
+}
+
+.submit-comment {
+  width: 196rpx;
+  margin: auto;
+  line-height: 72rpx;
+  background-color: yellow;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.submit-comment.disable {
+  background-color: rgba(128, 128, 32, 0.671);
+  color: #ccc;
+}
