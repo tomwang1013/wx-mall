@@ -4,13 +4,14 @@
     "pages/trolley/trolley",
     "pages/order/order",
     "pages/user/user",
-    "pages/product/product"
+    "pages/product/product",
+    "pages/add-comment/add-comment"
   ],
   "window": {
-    "backgroundColor":"#F6F6F6",
-    "backgroundTextStyle":"light",
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "list": [

@@ -20,6 +20,10 @@ Page({
 
   // 结算
   buy() {
+    if (trolleyAccount <= 0) {
+      return;
+    }
+    
     wx.showLoading({
       title: '下单中...',
     })
@@ -37,6 +41,9 @@ Page({
           wx.showToast({
             title: '下单成功',
           })
+
+          // 更新购物车
+          this.getTrolleyList();
         } else {
           wx.showToast({
             title: '下单失败',

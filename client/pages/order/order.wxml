@@ -1,3 +1,13 @@
+<wxs module='sp'>
+  module.exports = {
+    stringifyParams: function(params) {
+      return ['name', 'price', 'image'].map(function(k) {
+        var v = params[k];
+        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      }).join('&');
+    }
+  }
+</wxs>
 <image class='bg' src='/images/bg.png'></image>
 <view wx:if='{{!userInfo}}'>
   <include src='../../templates/not-login.wxml'/>
@@ -19,7 +29,8 @@
           <view class='name'>{{item.name}}</view>
           <view class='price'>￥ {{item.price}}</view>
         </view>
-        <button class='to-comment'>评价</button>
+        <navigator url='{{"/pages/add-comment/add-comment?" + sp.stringifyParams(item)}}'
+                   class='to-comment'>评价</navigator>
         <text class='count'>x{{item.count}}</text>
       </view>
     </view>
