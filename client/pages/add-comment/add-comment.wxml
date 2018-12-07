@@ -6,4 +6,4 @@
   </view>
 </view>
 <textarea bindinput='onInput' auto-focus placeholder='请填写你的评论'></textarea>
-<view class='submit-comment {{!commentValue ? "disable" : ""}}'>提交评价</view>
+<view class='submit-comment {{!commentValue ? "disable" : ""}}' bindtap='addComment'>提交评价</view>

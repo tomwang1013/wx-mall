@@ -1,13 +1,20 @@
 const qcloud = require('../../vendor/wafer2-client-sdk/index.js')
 const config = require('../../config.js')
 
+function stringifyProduct(params) {
+  return ['name', 'price', 'image', 'id'].map(function (k) {
+    return k + '=' + params[k];
+  }).join('&');
+}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    product: {}
+    product: {},
+    commentCount: 0
   },
 
   // 获取商品详情
@@ -95,5 +102,13 @@ Page({
    */
   onLoad: function (options) {
     this.getProductDetail(options.id || 6);
+  },
+
+  showComments() {
+    if (this.commentCount > 0) {
+      wx.navigateTo({
+        url: '/pages/comment/comment?' + stringifyProduct(this.data.product),
+      })
+    }
   }
 })

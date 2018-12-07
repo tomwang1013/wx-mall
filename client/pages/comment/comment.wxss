@@ -1,0 +1,23 @@
+.order {
+  padding: 20rpx;
+  position: relative;
+  display: flex;
+  background-color: #fff;
+}
+
+.order image {
+  width: 156rpx;
+  height: 156rpx;
+  margin-right: 20rpx;
+}
+
+.name {
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+  color: #888;
+}
+
+.price {
+  font-size: 32rpx;
+  font-weight: bold;
+}

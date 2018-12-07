@@ -43,6 +43,12 @@ var config = {
 
     // 更新购物车列表
     updateTrolleyUrl: `${host}/weapp/trolley`,
+
+    // 提交评论
+    addCommentUrl: `${host}/weapp/comment`,
+
+    // 评论列表
+    commentListUrl: `${host}/weapp/comment`,
   }
 };
 

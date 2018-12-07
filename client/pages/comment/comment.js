@@ -1,6 +1,4 @@
-const qcloud = require('../../vendor/wafer2-client-sdk/index.js');
-const config = require('../../config.js');
-
+// client/pages/comment/comment.js
 Page({
 
   /**
@@ -8,7 +6,7 @@ Page({
    */
   data: {
     product: null,
-    commentValue: ''
+    comments: []
   },
 
   /**
@@ -23,53 +21,45 @@ Page({
         productId: options.productId
       }
     })
-  },
-
-  onInput(event) {
-    this.setData({
-      commentValue: event.detail.value.trim()
-    })
-  },
-
-  addComment() {
-    if (!commentValue) {
-      return;
-    }
 
     wx.showLoading({
-      title: '正在提交评论...',
+      title: '获取评论中...',
     })
 
     qcloud.request({
-      url: config.service.addCommentUrl,
-      method: 'PUT',
+      url: config.service.commentListUrl,
       login: true,
       data: {
         productId: product.id,
-        content: commentValue
       },
       success: response => {
         wx.hideLoading()
         if (!response.data.code) {
           wx.showToast({
-            title: '添加成功',
+            title: '获取成功',
           })
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1500)
+          this.setData({
+            comments: response.data.data
+          })          
         } else {
           wx.showToast({
             title: '添加失败',
             icon: 'none'
           })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 1500)
         }
       },
       fail: err => {
-        console.error('添加评论失败：', err)
+        console.error('获取评论失败：', err)
         wx.showToast({
-          title: '添加失败',
+          title: '获取评论失败',
           icon: 'none'
         })
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 1500)
       }
     })
   },

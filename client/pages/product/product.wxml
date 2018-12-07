@@ -19,9 +19,9 @@
       <text>24小时内发货并配送运费险</text>
     </view>
   </view>
-  <view class='comments'>
+  <view class='comments' bindtap='showComments'>
     <text class='comments-title'>已买评价</text>
-    <text class='comments-cnt'>1条</text>
+    <text class='comments-cnt'>{{commentCount}}条</text>
     <image class='arrow-icon' src='/images/grey-arrow.png'></image>
   </view>
 </view>
