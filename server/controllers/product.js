@@ -7,6 +7,6 @@ module.exports = {
 
   detail: async ctx => {
     const productId = ctx.params.id;
-    ctx.state.data = (await DB.query('select * from product where product.id = ?', [productId]))[0];
+    ctx.state.data = (await DB.query('select product.*, COUNT(comment.id) as comment_count from product LEFT JOIN comment on product.id = comment.product_id where product.id = ?', [productId]))[0];
   }
 }

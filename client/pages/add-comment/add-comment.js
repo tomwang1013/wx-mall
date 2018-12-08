@@ -32,7 +32,7 @@ Page({
   },
 
   addComment() {
-    if (!commentValue) {
+    if (!this.data.commentValue) {
       return;
     }
 
@@ -45,8 +45,8 @@ Page({
       method: 'PUT',
       login: true,
       data: {
-        productId: product.id,
-        content: commentValue
+        productId: this.data.product.productId,
+        content: this.data.commentValue
       },
       success: response => {
         wx.hideLoading()
@@ -65,6 +65,7 @@ Page({
         }
       },
       fail: err => {
+        wx.hideLoading();
         console.error('添加评论失败：', err)
         wx.showToast({
           title: '添加失败',

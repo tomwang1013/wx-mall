@@ -1,3 +1,5 @@
+let useLocal = true;
+
 const CONF = {
   port: '5757',
   rootPathname: '',
@@ -40,6 +42,20 @@ const CONF = {
   // 微信登录态有效期
   wxLoginExpires: 7200,
   wxMessageToken: 'abcdefgh'
+}
+
+if (useLocal) {
+  Object.assign(CONF, { 
+    serverHost: 'localhost',
+    tunnelServerUrl: '',
+    tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
+    qcloudAppId: '1256680925',
+    qcloudSecretId: 'AKIDBB2e07KpOhldHgnrkOnxwhEVcbMsjD7m',
+    qcloudSecretKey: 'YvAAvRlriJj27wWw73jEbjdIl00kJlzy',
+    networkTimeout: 30000
+  });
+
+  CONF.mysql.host = '192.168.1.5'
 }
 
 module.exports = CONF

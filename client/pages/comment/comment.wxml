@@ -1,3 +1,11 @@
+<wxs module='format_date'>
+  module.exports = {
+    format: function(dateStr) {
+      var date = dateStr.slice(0, 10).split('-');
+      return date[0] + '年' + date[1] + '月' + date[2] + '日';
+    }
+  }
+</wxs>
 <view class='order'>
   <image src='{{product.image}}'></image>
   <view class='order-right'>
@@ -13,6 +21,6 @@
       <view class='user'>{{item.username}}</view>
       <view class='content'>{{item.content}}</view>
     </view>
-    <view class='create-time'>{{item.create_time}}</view>
+    <view class='create-time'>{{format_date.format(item.create_time)}}</view>
   </view>
 </view>

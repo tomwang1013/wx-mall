@@ -47,5 +47,6 @@ router.post('/trolley', validationMiddleware, controllers.trolley.update)
 
 // 评论
 router.put('/comment', validationMiddleware, controllers.comment.add)
+router.get('/comment', controllers.comment.list)
 
 module.exports = router

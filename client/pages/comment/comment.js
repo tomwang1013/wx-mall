@@ -1,4 +1,6 @@
-// client/pages/comment/comment.js
+const qcloud = require('../../vendor/wafer2-client-sdk/index.js')
+const config = require('../../config.js')
+
 Page({
 
   /**
@@ -18,7 +20,7 @@ Page({
         image: options.image,
         name: options.name,
         price: options.price,
-        productId: options.productId
+        productId: options.id
       }
     })
 
@@ -28,9 +30,8 @@ Page({
 
     qcloud.request({
       url: config.service.commentListUrl,
-      login: true,
       data: {
-        productId: product.id,
+        productId: this.data.product.productId,
       },
       success: response => {
         wx.hideLoading()
@@ -52,6 +53,7 @@ Page({
         }
       },
       fail: err => {
+        wx.hideLoading();
         console.error('获取评论失败：', err)
         wx.showToast({
           title: '获取评论失败',

@@ -13,8 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    product: {},
-    commentCount: 0
+    product: {}
   },
 
   // 获取商品详情
@@ -105,7 +104,7 @@ Page({
   },
 
   showComments() {
-    if (this.commentCount > 0) {
+    if (this.data.product.comment_count > 0) {
       wx.navigateTo({
         url: '/pages/comment/comment?' + stringifyProduct(this.data.product),
       })

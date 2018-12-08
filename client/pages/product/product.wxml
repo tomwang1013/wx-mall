@@ -21,7 +21,7 @@
   </view>
   <view class='comments' bindtap='showComments'>
     <text class='comments-title'>已买评价</text>
-    <text class='comments-cnt'>{{commentCount}}条</text>
+    <text class='comments-cnt'>{{product.comment_count}}条</text>
     <image class='arrow-icon' src='/images/grey-arrow.png'></image>
   </view>
 </view>

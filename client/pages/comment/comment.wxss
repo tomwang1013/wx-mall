@@ -21,3 +21,43 @@
   font-size: 32rpx;
   font-weight: bold;
 }
+
+.comments {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.count {
+  font-size: 32rpx;
+  margin: 30rpx 0;
+}
+
+.comment {
+  display: flex;
+  margin: 30rpx 0;
+}
+
+.avatar {
+  margin-right: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.user, .create-time {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 2;
+}
+
+.create-time {
+  flex: 0 0 auto;
+}
+
+.user-content {
+  flex: 1 1 auto;
+  font-size: 32rpx;
+  margin-right: auto;
+}
