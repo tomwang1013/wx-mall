@@ -55,7 +55,7 @@ if (useLocal) {
     networkTimeout: 30000
   });
 
-  CONF.mysql.host = '192.168.1.5'
+  CONF.mysql.host = '192.168.1.4'
 }
 
 module.exports = CONF
