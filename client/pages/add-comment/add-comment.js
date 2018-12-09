@@ -8,7 +8,8 @@ Page({
    */
   data: {
     product: null,
-    commentValue: ''
+    commentValue: '',
+    commentImages: []
   },
 
   /**
@@ -31,22 +32,47 @@ Page({
     })
   },
 
-  addComment() {
-    if (!this.data.commentValue) {
-      return;
+  // 提交图片
+  uploadImages(cb) {
+    const images = [];
+    let length = this.data.commentImages.length;
+    for (let i = 0; i < length; i++) {
+      console.log('要上传的图片：', this.data.commentImages[i]);
+      wx.uploadFile({
+        url: config.service.uploadUrl,
+        filePath: this.data.commentImages[i],
+        name: 'file',
+        success: res => {
+          console.log('上传成功：', res.data)
+          let data = JSON.parse(res.data)
+          length--
+
+          if (!data.code) {
+            images.push(data.data.imgUrl)
+          }
+
+          if (length <= 0) {
+            cb && cb(images)
+          }
+        },
+        fail: err => {
+          console.error('上传失败：', err)
+          length--
+        }
+      })
     }
+  },
 
-    wx.showLoading({
-      title: '正在提交评论...',
-    })
-
+  // 最终提交评论
+  submitComment(images) {
     qcloud.request({
       url: config.service.addCommentUrl,
       method: 'PUT',
       login: true,
       data: {
         productId: this.data.product.productId,
-        content: this.data.commentValue
+        content: this.data.commentValue,
+        images: images
       },
       success: response => {
         wx.hideLoading()
@@ -75,52 +101,47 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  // 添加评论
+  addComment() {
+    if (!this.data.commentValue) {
+      return;
+    }
+
+    wx.showLoading({
+      title: '正在提交评论...',
+    })
+
+    if (this.data.commentImages.length) {
+      this.uploadImages(images => this.submitComment(images));
+    } else {
+      this.submitComment();
+    }
+  },
+
+  // 选择图片
+  chooseImage() {
+    wx.chooseImage({
+      count: 3,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: res => {
+        let currentImages = res.tempFilePaths
+        this.setData({
+          commentImages: currentImages
+        })
+      },
+    })
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  // 预览图片
+  previewImg(event) {
+    let target = event.currentTarget
+    let src = target.dataset.src
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.previewImage({
+      current: src,
+      urls: this.data.images
+    })
   }
 })

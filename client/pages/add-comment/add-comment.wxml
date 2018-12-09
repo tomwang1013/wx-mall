@@ -5,5 +5,17 @@
     <view class='price'>￥ {{product.price}}</view>
   </view>
 </view>
-<textarea bindinput='onInput' auto-focus placeholder='请填写你的评论'></textarea>
+<view class='add-comment'>
+  <textarea bindinput='onInput' auto-focus placeholder='请填写你的评论'></textarea>
+  <image src='/images/image.png' class='choose-image' bindtap='chooseImage'></image>
+</view>
+<view class='preview-wrapper' wx:if='{{commentImages.length}}'>
+  <image wx:for='{{commentImages}}' 
+         wx:key='*this' 
+         src='{{item}}' 
+         bindtap='previewImg'
+         data-src='{{item}}'
+         class='preview-image'
+         mode='aspectFill'></image>
+</view>
 <view class='submit-comment {{!commentValue ? "disable" : ""}}' bindtap='addComment'>提交评价</view>

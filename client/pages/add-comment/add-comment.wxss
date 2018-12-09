@@ -22,19 +22,37 @@
   font-weight: bold;
 }
 
-textarea {
+.add-comment {
   margin: 30rpx;
-  padding: 20rpx;
-  width: 650rpx;
-  font-size: 32rpx;
-  height: 320rpx;
-  background-color: #fff;
   border-radius: 6rpx;
   box-shadow: 0 0 6rpx 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+textarea {
+  padding: 20rpx;  
+  width: 650rpx;
+  height: 300rpx;
+  font-size: 32rpx;
 }
 
 .textarea-placeholder {
   color: #888;
+}
+
+.choose-image {
+  width: 43rpx;
+  height: 43rpx;
+  margin-left: 20rpx;
+}
+
+.preview-image {
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.preview-wrapper {
+  margin: 30rpx;
 }
 
 .submit-comment {
