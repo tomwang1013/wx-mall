@@ -37,13 +37,11 @@ Page({
     const images = [];
     let length = this.data.commentImages.length;
     for (let i = 0; i < length; i++) {
-      console.log('要上传的图片：', this.data.commentImages[i]);
       wx.uploadFile({
         url: config.service.uploadUrl,
         filePath: this.data.commentImages[i],
         name: 'file',
         success: res => {
-          console.log('上传成功：', res.data)
           let data = JSON.parse(res.data)
           length--
 

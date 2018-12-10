@@ -40,7 +40,10 @@ Page({
             title: '获取成功',
           })
           this.setData({
-            comments: response.data.data
+            comments: response.data.data.map(c => {
+              c.images = c.images ? c.images.split(';') : [];
+              return c;
+            })
           })          
         } else {
           wx.showToast({
@@ -70,10 +73,11 @@ Page({
   previewImg(event) {
     let target = event.currentTarget
     let src = target.dataset.src
+    let index = target.dataset.index
 
     wx.previewImage({
       current: src,
-      urls: this.data.images
+      urls: this.data.comments[index].images
     })
   }
 })

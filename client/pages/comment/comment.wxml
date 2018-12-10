@@ -15,18 +15,19 @@
 </view>
 <view class='comments'>
   <view class='count'>{{comments.length}}条评论</view>
-  <view class='comment' wx:for='{{comments}}' wx:key='item.id'>
+  <view class='comment' wx:for='{{comments}}' wx:key='item.id' wx:for-index='commentIndex'>
     <image class='avatar' src='{{item.avatar}}'></image>
     <view class='user-content'>
       <view class='user'>{{item.username}}</view>
       <view class='content'>{{item.content}}</view>
-      <view class='preview-wrapper' wx:if='{{item.images}}'>
+      <view class='preview-wrapper' wx:if='{{item.images.length}}'>
         <image 
-          wx:for='{{item.images.split(",")}}' 
+          wx:for='{{item.images}}' 
           wx:for-item='imageUrl'
           wx:key='*this' 
           src='{{imageUrl}}' 
           bindtap='previewImg'
+          data-index='{{commentIndex}}'
           data-src='{{imageUrl}}'
           class='preview-image'
           mode='aspectFill'></image>
