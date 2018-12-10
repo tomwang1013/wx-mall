@@ -20,6 +20,17 @@
     <view class='user-content'>
       <view class='user'>{{item.username}}</view>
       <view class='content'>{{item.content}}</view>
+      <view class='preview-wrapper' wx:if='{{item.images}}'>
+        <image 
+          wx:for='{{item.images.split(",")}}' 
+          wx:for-item='imageUrl'
+          wx:key='*this' 
+          src='{{imageUrl}}' 
+          bindtap='previewImg'
+          data-src='{{imageUrl}}'
+          class='preview-image'
+          mode='aspectFill'></image>
+      </view>
     </view>
     <view class='create-time'>{{format_date.format(item.create_time)}}</view>
   </view>

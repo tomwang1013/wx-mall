@@ -61,3 +61,8 @@
   font-size: 32rpx;
   margin-right: auto;
 }
+
+.preview-image {
+  width: 128rpx;
+  height: 128rpx;
+}
