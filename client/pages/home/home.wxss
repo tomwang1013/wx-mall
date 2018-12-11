@@ -1,10 +1,10 @@
 page {
   padding: 25rpx;
+  width: 700rpx;
 }
 
 .head-product {
   padding: 30rpx 30rpx 0;
-  width: 700rpx;
   background-color: #fff;
   border: 1rpx solid #ccc;
   border-radius: 12rpx;
