@@ -49,7 +49,6 @@ Page({
 
     qcloud.request({
       url: config.service.addToTrolleyUrl,
-      login: true,
       method: 'PUT',
       data: this.data.product,
       success: (response) => {
@@ -87,7 +86,6 @@ Page({
         list: [product], 
         isInstantBuy: true
       },
-      login: true,
       method: 'POST',
       success: () => {
         console.log('购买成功');

@@ -31,7 +31,6 @@ Page({
     qcloud.request({
       url: config.service.buyUrl,
       method: 'POST',
-      login: true,
       data: { 
         list: this.data.trolleyList.filter((t, i) => this.data.trolleyCheckMap[i])
       },
@@ -119,7 +118,6 @@ Page({
     qcloud.request({
       url: config.service.updateTrolleyUrl,
       method: 'POST',
-      login: true,
       data: {
         trolleyList: this.data.trolleyList
       },
@@ -193,7 +191,6 @@ Page({
 
     qcloud.request({
       url: config.service.trolleyListUrl,
-      login: true,
       success: response => {
         wx.hideLoading();
 

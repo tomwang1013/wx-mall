@@ -66,7 +66,6 @@ Page({
     qcloud.request({
       url: config.service.addCommentUrl,
       method: 'PUT',
-      login: true,
       data: {
         productId: this.data.product.productId,
         content: this.data.commentValue,

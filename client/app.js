@@ -16,8 +16,14 @@ App({
    */
   checkSession({ success, fail }) {
     wx.checkSession({
-      success: () => this.getUserInfo({ success, fail }),
-      fail: err => fail(err)
+      success: () => {
+        // session not expired: get user info directly
+        this.getUserInfo({ success, fail })
+      },
+      fail:  err => {
+        // session expired: need relogin
+        fail(err)
+      }
     })
   },
 
@@ -30,7 +36,6 @@ App({
     }
     
     qcloud.request({
-      login: true,
       url: config.service.requestUrl,
       success: result => {
         this.userInfo = result.data.data;
@@ -44,13 +49,18 @@ App({
    * 登录并保存用户信息
    */
   doQcloudLogin({ success, fai }) {
-    qcloud.login({
-      success: result => {
-        this.userInfo = result;
-        success(result)
-      },
-      fail: err => fail('login failed: ', err)
-    })
+    const scb = result => {
+      this.userInfo = result;
+      success(result)
+    };
+
+    if (qcloud.Session.get()) {
+      // 曾经登陆了过，但是登录状态过期了
+      qcloud.loginWithCode({ success: scb, fai })
+    } else {
+      // 从未登录过
+      qcloud.login({ success, scb, fai })
+    }
   },
 
   /**

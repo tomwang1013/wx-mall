@@ -50,7 +50,6 @@ Page({
 
     qcloud.request({
       url: config.service.addToTrolleyUrl,
-      login: true,
       method: 'PUT',
       data: product,
       success: response => {
